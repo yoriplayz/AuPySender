@@ -1,20 +1,23 @@
 # AuPySender
 
-**A simple WhatsApp Message Scheduler built with Python.**
+**A lightweight WhatsApp Message Scheduler built with Python.**
 
-AuPySender is a lightweight desktop application that allows users to schedule WhatsApp messages through a graphical user interface (GUI). Built using Python, Tkinter, and PyWhatKit, it eliminates the need to enter scheduling details through the terminal.
+AuPySender is a desktop application that allows users to schedule WhatsApp messages through a graphical user interface (GUI). Built using Python, Tkinter, and PyWhatKit, it provides a simple alternative to entering scheduling details through the terminal.
 
 With AuPySender, you can enter a recipient's phone number, compose a message, select a sending time, and let PyWhatKit handle the scheduling process through WhatsApp Web.
 
 ## Features
 
-- **Graphical User Interface:** Simple and intuitive desktop interface powered by Tkinter.
+- **Graphical User Interface:** Clean and intuitive desktop interface built with Tkinter.
+- **Catppuccin Mocha Theme:** A modern dark interface featuring the Catppuccin Mocha colour palette.
+- **Live Digital Clock:** Displays the current system time and date, updating every second.
 - **Phone Number Input:** Supports international phone numbers with country codes.
-- **Message Composer:** Multi-line text area for composing messages.
+- **Message Composer:** Multi-line text area for composing WhatsApp messages.
 - **Message Scheduling:** Schedule messages using the 24-hour time format.
+- **Status Indicator:** Real-time application status displaying Waiting, Sending, Completed, or Error.
+- **Background Processing:** Uses Python threading to keep the GUI responsive while PyWhatKit processes the scheduled message.
 - **Input Validation:** Validates phone number format, message content, and scheduling time.
 - **Error Handling:** Displays notifications for invalid inputs and unexpected errors.
-- **Dark Interface:** Minimal dark-themed design with a green action button.
 - **Standalone Executable:** Can be packaged into a Windows `.exe` using PyInstaller.
 
 ## Technologies Used
@@ -24,13 +27,16 @@ With AuPySender, you can enter a recipient's phone number, compose a message, se
 | Python | Core programming language |
 | Tkinter | Graphical user interface |
 | PyWhatKit | WhatsApp message scheduling |
+| Threading | Background processing |
+| Queue | Communication between background thread and GUI |
 | PyInstaller | Windows executable packaging |
 
 ## Application Preview
 
 <!-- Add screenshots of AuPySender here -->
-<img width="942" height="502" alt="Screenshot 2026-11-03 171836" src="https://github.com/user-attachments/assets/7aa2a24e-439f-4128-9136-35b7579ea8da" />
-<img width="1912" height="1038" alt="Screenshot 2026-11-03 171516" src="https://github.com/user-attachments/assets/5f72dcd1-9534-4841-aa3c-e5a56b9cc8b7" />
+<img width="941" height="1034" alt="Screenshot 2026-11-03 190226" src="https://github.com/user-attachments/assets/4fd6293a-0348-4594-9477-15316ef7efc6" />
+<img width="1911" height="1036" alt="Screenshot 2026-11-03 190121" src="https://github.com/user-attachments/assets/313adabd-d767-44e5-9f77-81a166327a83" />
+
 
 ## Installation
 
@@ -77,7 +83,19 @@ python main.py
 3. Compose your WhatsApp message.
 4. Enter the desired hour and minute using the 24-hour format.
 5. Click **Send Message**.
-6. PyWhatKit will open WhatsApp Web and handle the scheduled sending process.
+6. AuPySender will process the scheduled message through PyWhatKit and WhatsApp Web.
+7. Monitor the application status indicator to see the current processing state.
+
+### Status Indicators
+
+| Status | Colour | Description |
+|---|---|---|
+| Waiting | Yellow | A message is scheduled and waiting for its sending time. |
+| Sending | Blue | The scheduled sending time has been reached. |
+| Completed | Green | PyWhatKit has finished processing without raising an exception. |
+| Error | Red | An exception occurred during processing. |
+
+**Note:** The Sending indicator is triggered by the scheduled time rather than direct WhatsApp delivery information. Completed indicates successful execution of the PyWhatKit function, not confirmed message delivery.
 
 ## Building from Source
 
@@ -122,14 +140,14 @@ AuPySender/
 ├── README.md
 ├── .gitignore
 │
-├── build/          # Temporary build files
-├── dist/           # Generated executable
-└── AuPySender.spec # PyInstaller configuration
+├── build/                  # Temporary PyInstaller build files
+├── dist/                   # Generated executable
+└── AuPySender.spec         # PyInstaller configuration
 ```
 
 ## Requirements
 
-For running from source:
+**For running from source:**
 
 - Python 3.x
 - PyWhatKit
@@ -137,7 +155,7 @@ For running from source:
 - Active internet connection
 - WhatsApp account
 
-For running the standalone executable:
+**For running the standalone executable:**
 
 - Windows operating system
 - Active internet connection
@@ -148,9 +166,12 @@ For running the standalone executable:
 - You must be logged into WhatsApp Web.
 - Your computer must remain powered on and connected to the internet during scheduling.
 - WhatsApp Web must remain accessible to PyWhatKit.
+- The application currently supports scheduling one message at a time.
+- Scheduling is currently limited to a future time on the same day.
+- The status indicator reflects the application's processing state, not confirmed WhatsApp delivery.
 - Scheduling depends on the availability and behaviour of WhatsApp Web.
-- A successful scheduling operation does not independently confirm message delivery.
 - Use the application responsibly and respect recipients' consent.
+
 
 ## Author
 
